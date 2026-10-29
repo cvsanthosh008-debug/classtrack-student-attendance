@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classtrack | Attendance Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">C</div><div><strong>Classtrack</strong><small>ATTENDANCE PORTAL</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <button class="nav-item active" data-view="dashboard"><span>▦</span> Dashboard</button>
+    <button class="nav-item" data-view="students"><span>♙</span> Students</button>
+    <button class="nav-item" data-view="attendance"><span>✓</span> Mark attendance</button>
+    <button class="nav-item" data-view="reports"><span>▤</span> Reports</button>
+    <div class="sidebar-bottom"><div class="mini-avatar">AD</div><div><b>Administrator</b><small>Class coordinator</small></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="mobile-brand"><div class="brand-mark">C</div><strong>Classtrack</strong></div>
+      <div class="crumb">Workspace <span>/</span> <b id="crumbCurrent">Dashboard</b></div>
+      <div class="top-right"><span class="status-dot"></span><span>Demo workspace</span><div class="top-avatar">AD</div></div>
+    </header>
+
+    <section class="page active" id="dashboard">
+      <div class="page-heading"><div><p class="eyebrow">OVERVIEW</p><h1>Attendance dashboard</h1><p class="muted">A clear view of student attendance and class activity.</p></div><button class="primary-btn" data-goto="attendance">＋ Mark attendance</button></div>
+      <div class="notice"><span class="notice-icon">ⓘ</span><div><b>Demo mode</b><p>This website stores changes in this browser only. It is not connected to your Oracle database yet.</p></div></div>
+      <div class="stats">
+        <article class="stat-card"><div class="stat-top"><span>Total students</span><span class="stat-icon violet">♙</span></div><strong id="statStudents">3</strong><small class="positive">Registered in this class</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Attendance records</span><span class="stat-icon blue">✓</span></div><strong id="statRecords">9</strong><small>Across all class dates</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Average attendance</span><span class="stat-icon green">↗</span></div><strong id="statAverage">66.67%</strong><small>Across recorded sessions</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Below 75%</span><span class="stat-icon orange">!</span></div><strong id="statLow">3</strong><small class="warning-text">Needs attention</small></article>
+      </div>
+      <div class="content-grid">
+        <article class="panel">
+          <div class="panel-head"><div><h2>Student attendance</h2><p class="muted">Attendance percentage by student</p></div><button class="text-btn" data-goto="reports">View report ↗</button></div>
+          <div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>ROLL NO.</th><th>ATTENDANCE</th><th>STATUS</th></tr></thead><tbody id="dashboardTable"></tbody></table></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><h2>Attendance summary</h2><p class="muted">All recorded sessions</p></div></div>
+          <div class="summary-number"><strong id="presentTotal">6</strong><span>present marks</span></div>
+          <div class="progress-label"><span>Present</span><b id="presentPct">66.7%</b></div><div class="progress"><span id="presentBar" style="width:66.7%"></span></div>
+          <div class="progress-label"><span>Absent</span><b id="absentPct">33.3%</b></div><div class="progress absent"><span id="absentBar" style="width:33.3%"></span></div>
+          <div class="tip-box"><span>✦</span><p><b>Attendance tip</b><br>Keep attendance at or above 75% to meet the usual minimum requirement.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page" id="students">
+      <div class="page-heading"><div><p class="eyebrow">CLASS MANAGEMENT</p><h1>Students</h1><p class="muted">Manage the students registered in your class.</p></div><button class="primary-btn" id="addStudentBtn">＋ Add student</button></div>
+      <article class="panel">
+        <div class="panel-head"><div><h2>Student directory</h2><p class="muted">Search by student name or roll number.</p></div><input class="search" id="studentSearch" placeholder="⌕  Search students…"></div>
+        <div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>ROLL NO.</th><th>DEPARTMENT</th><th>YEAR</th><th>ATTENDANCE</th><th></th></tr></thead><tbody id="studentsTable"></tbody></table></div>
+      </article>
+    </section>
+
+    <section class="page" id="attendance">
+      <div class="page-heading"><div><p class="eyebrow">CLASS MANAGEMENT</p><h1>Mark attendance</h1><p class="muted">Choose a date and record each student's attendance.</p></div></div>
+      <div class="form-row">
+        <label class="field">Subject<select id="subjectSelect"><option>DBMS</option><option>Operating Systems</option><option>Computer Networks</option></select></label>
+        <label class="field">Attendance date<input type="date" id="attendanceDate"></label>
+      </div>
+      <article class="panel">
+        <div class="panel-head"><div><h2>Class register</h2><p class="muted">Select Present or Absent for each student.</p></div><div class="quick-actions"><button class="secondary-btn" id="allPresent">All present</button><button class="secondary-btn" id="allAbsent">All absent</button></div></div>
+        <div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>ROLL NO.</th><th>ATTENDANCE STATUS</th></tr></thead><tbody id="markTable"></tbody></table></div>
+        <div class="panel-footer"><span class="muted" id="markCount">3 students</span><button class="primary-btn" id="saveAttendance">Save attendance</button></div>
+      </article>
+      <p class="muted small-note">A student can have only one attendance record per subject and date in this demo.</p>
+    </section>
+
+    <section class="page" id="reports">
+      <div class="page-heading"><div><p class="eyebrow">INSIGHTS</p><h1>Attendance reports</h1><p class="muted">Review attendance totals and identify students below 75%.</p></div><button class="secondary-btn" id="exportCsv">↓ Export CSV</button></div>
+      <div class="stats report-stats">
+        <article class="stat-card"><div class="stat-top"><span>Students below 75%</span><span class="stat-icon orange">!</span></div><strong id="reportLow">3</strong><small>Across recorded attendance</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Present marks</span><span class="stat-icon green">✓</span></div><strong id="reportPresent">6</strong><small>Recorded as present</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Absent marks</span><span class="stat-icon blue">×</span></div><strong id="reportAbsent">3</strong><small>Recorded as absent</small></article>
+      </div>
+      <article class="panel">
+        <div class="panel-head"><div><h2>Attendance by student</h2><p class="muted">Percentage is calculated from all records for each student.</p></div><input class="search" id="reportSearch" placeholder="⌕  Search reports…"></div>
+        <div class="table-wrap"><table><thead><tr><th>ROLL NO.</th><th>STUDENT</th><th>PRESENT</th><th>TOTAL CLASSES</th><th>ATTENDANCE</th><th>STATUS</th></tr></thead><tbody id="reportsTable"></tbody></table></div>
+      </article>
+    </section>
+    <footer>CLASSTRACK <span>•</span> Student Attendance Management System <span class="footer-right">Built for a DBMS mini-project</span></footer>
+  </main>
+
+  <dialog id="studentDialog">
+    <form id="studentForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">CLASS MANAGEMENT</p><h2>Add student</h2></div><button type="button" class="close-btn" id="closeDialog">×</button></div>
+      <label class="field">Student name<input id="newName" required maxlength="100" placeholder="e.g. Kavya Reddy"></label>
+      <label class="field">Roll number<input id="newRoll" required maxlength="20" placeholder="e.g. 104"></label>
+      <label class="field">Department<input id="newDept" value="CSE" maxlength="50" required></label>
+      <label class="field">Academic year<select id="newYear"><option value="1">1st year</option><option value="2" selected>2nd year</option><option value="3">3rd year</option><option value="4">4th year</option></select></label>
+      <div class="dialog-actions"><button type="button" class="secondary-btn" id="cancelDialog">Cancel</button><button class="primary-btn" type="submit">Add student</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
